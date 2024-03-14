@@ -6,16 +6,50 @@
     <title>Update Game</title>
 </head>
 <body>
-    <button id="updateButton" onclick="updateText()">Update</button>
+    <button id="updateButton" onclick="updateValue()">Update</button>
 
     <script>
-        function updateText() {
-            const button = document.getElementById("updateButton");
-            if (button.textContent === "Update") {
-                button.textContent = "Updating";
-                setTimeout(() => {
-                    button.textContent = "Update";
-                }, 5000); // Wait for 5 seconds (5000 milliseconds)
+        async function updateValue() {
+            const newValue = "Updated Value"; // Modify this with your new content
+            const apiUrl = 'https://api.github.com/repos/YOUR_USERNAME/YOUR_REPO/contents/index.html'; // Replace placeholders
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'Bearer YOUR_GITHUB_PAT', // Replace with your GitHub Personal Access Token
+                    },
+                });
+
+                if (!response.ok) {
+                    throw new Error('Error fetching file details.');
+                }
+
+                const data = await response.json();
+                const content = btoa(newValue); // Encode the new value
+                const sha = data.sha;
+
+                const updateResponse = await fetch(apiUrl, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': 'Bearer YOUR_GITHUB_PAT', // Replace with your GitHub Personal Access Token
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: 'Update value via button click',
+                        content: content,
+                        sha: sha,
+                        branch: 'main', // Replace with your branch name
+                    }),
+                });
+
+                if (updateResponse.ok) {
+                    console.log('Value updated successfully!');
+                } else {
+                    throw new Error('Error updating value.');
+                }
+            } catch (error) {
+                console.error(error.message);
             }
         }
     </script>
