@@ -6,15 +6,16 @@
     <title>Update Game</title>
 </head>
 <body>
-    <button id="updateButton" onclick="changeText()">Update</button>
+    <button id="updateButton" onclick="updateText()">Update</button>
 
     <script>
-        function changeText() {
+        function updateText() {
             const button = document.getElementById("updateButton");
             if (button.textContent === "Update") {
                 button.textContent = "Updating";
-            } else {
-                button.textContent = "Update";
+                setTimeout(() => {
+                    button.textContent = "Update";
+                }, 5000); // Wait for 5 seconds (5000 milliseconds)
             }
         }
     </script>
