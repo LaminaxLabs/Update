@@ -12,12 +12,13 @@
         async function updateValue() {
             const newValue = "Updated Value"; // Modify this with your new content
             const apiUrl = 'https://api.github.com/repos/YOUR_USERNAME/YOUR_REPO/contents/index.html'; // Replace placeholders
+            const authToken = 'Bearer YOUR_GITHUB_PAT'; // Replace with your GitHub Personal Access Token
 
             try {
                 const response = await fetch(apiUrl, {
                     method: 'GET',
                     headers: {
-                        'Authorization': 'Bearer YOUR_GITHUB_PAT', // Replace with your GitHub Personal Access Token
+                        'Authorization': authToken,
                     },
                 });
 
@@ -32,7 +33,7 @@
                 const updateResponse = await fetch(apiUrl, {
                     method: 'PUT',
                     headers: {
-                        'Authorization': 'Bearer YOUR_GITHUB_PAT', // Replace with your GitHub Personal Access Token
+                        'Authorization': authToken,
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
@@ -49,7 +50,7 @@
                     throw new Error('Error updating value.');
                 }
             } catch (error) {
-                console.error(error.message);
+                console.error('An error occurred:', error.message);
             }
         }
     </script>
