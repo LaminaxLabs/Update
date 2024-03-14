@@ -1,0 +1,3 @@
+- If you are looking at this repository, somethings wrong!
+- dont touch anything you see in here please!!!!
+- I beg you.. 🙏
